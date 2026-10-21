@@ -33,7 +33,18 @@ import { PACKS, LISTED, PACK_BY_ID, DEFAULT_PACK, auditPacks, deletePack, DELETE
 import { auditPack } from "./data/audit.mjs";
 import * as images from "./images.mjs";
 import * as npc from "./npc.mjs";
-import { startTunnel, restartTunnels } from "./tunnel.mjs";
+// ★ 隧道模块改为动态导入，云端不需要，避免 tunnel.mjs 缺失导致启动崩溃
+let tunnel = null;
+async function loadTunnel() {
+  if (tunnel) return tunnel;
+  try {
+    tunnel = await import("./tunnel.mjs");
+  } catch (e) {
+    console.log("  [提示] 未找到 tunnel.mjs 模块，公网隧道功能不可用（本地使用不影响）。");
+    tunnel = { startTunnel: async () => null, restartTunnels: () => {} };
+  }
+  return tunnel;
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = path.join(__dirname, "public");
@@ -1715,14 +1726,24 @@ images.setOnDone(() => {
 });
 /* ============================================================
    公网隧道：让别人不在同一个 WiFi 也能连进来
+   ★ 云端部署模式：检测到 PORT 环境变量（Railway/Render 自动注入）时
+     自动禁用隧道和图片生成，避免容器崩溃
    ============================================================ */
-function startPublicTunnel() {
-  if (String(process.env.NO_TUNNEL || "") === "1") return;
-  startTunnel(PORT, {
+const IS_CLOUD = !!(process.env.PORT && process.env.PORT !== "");
+if (IS_CLOUD) {
+  process.env.NO_TUNNEL = "1";
+  process.env.NO_IMG = "1";
+  process.env.NO_OPEN = "1";
+  console.log("  [云端模式] 检测到平台端口注入，自动禁用隧道和图片生成。");
+}
+async function startPublicTunnel() {
+  if (IS_CLOUD || String(process.env.NO_TUNNEL || "") === "1") return;
+  const mod = await loadTunnel();
+  if (!mod || !mod.startTunnel) return;
+  mod.startTunnel(PORT, {
     onLog: (m) => console.log(m),
     onUrl: (url) => {
       if (!url) {
-        // 修复 4：地址没了就是"公网暂时不可达"，这个事实要报出去（/api/lan、页面提示都靠它）
         TUNNEL_STATE.ok = false;
         if (PUBLIC_URL) {
           PUBLIC_URL = null;
@@ -1733,7 +1754,6 @@ function startPublicTunnel() {
       }
       const fresh = PUBLIC_URL !== url;
       PUBLIC_URL = url;
-      // 修复 4：新地址一到就当成健康的（这一条隧道刚起来，还没被玩家验证过）
       TUNNEL_STATE.ok = true;
       TUNNEL_STATE.fails = 0;
       if (fresh) {
@@ -1804,7 +1824,7 @@ const tunnelTimer = setInterval(async () => {
   console.log("  公网地址：   自检连续失败，这条隧道已经不通了，正在换一条新的（第 " + TUNNEL_STATE.restarts + " 次）……");
   PUBLIC_URL = null;
   for (const room of rooms.values()) broadcast(room);
-  try { restartTunnels(); } catch (e) {}
+  try { if (tunnel && tunnel.restartTunnels) tunnel.restartTunnels(); } catch (e) {}
 }, 20000);
 tunnelTimer.unref();
 export { server };
@@ -1840,14 +1860,17 @@ function onListening() {
     } catch (e) {}
   }
   // ★ 需求 2：所有剧本的图（封面 / 头像 / 场景 / 网页底图）在开局之前就整批生成好
+  // 云端模式（NO_IMG=1）下跳过 prewarm，避免联网生成卡住启动
   refreshImageList();
-  const imgJobs = images.prewarm(PACKS);
-  const st0 = imageStatus();
-  if (st0.ready) console.log("  实景图：     " + st0.total + " 张全部就绪（头像 / 搜证场景 / 网页底图），建房即用。");
-  else { startImageWatch(); console.log("  实景图：     准备中 " + st0.done + "/" + st0.total + "（头像 " + (st0.char - st0.charPending) + "/" + st0.char + "，搜证场景 " + (st0.loc - st0.locPending) + "/" + st0.loc + "）——备齐之前不能建房。"); }
-  console.log("  实景图：     " + (process.env.NO_IMG === "1"
-    ? "NO_IMG=1 —— 只读 cache/img 里已有的图，不联网生成。"
-    : "开始准备 " + imgJobs + " 张图（封面 / 角色头像 / 搜证场景 / 网页底图），缓存里已有的会立刻跳过。"));
+  if (!IS_CLOUD && process.env.NO_IMG !== "1") {
+    const imgJobs = images.prewarm(PACKS);
+    const st0 = imageStatus();
+    if (st0.ready) console.log("  实景图：     " + st0.total + " 张全部就绪（头像 / 搜证场景 / 网页底图），建房即用。");
+    else { startImageWatch(); console.log("  实景图：     准备中 " + st0.done + "/" + st0.total + "（头像 " + (st0.char - st0.charPending) + "/" + st0.char + "，搜证场景 " + (st0.loc - st0.locPending) + "/" + st0.loc + "）——备齐之前不能建房。"); }
+    console.log("  实景图：     开始准备 " + imgJobs + " 张图（封面 / 角色头像 / 搜证场景 / 网页底图），缓存里已有的会立刻跳过。");
+  } else {
+    console.log("  实景图：     云端模式 —— 只读 cache/img 里已有的图，不联网生成。");
+  }
   // ★ 云端日志：区分本地和云端启动
   if (String(process.env.NO_TUNNEL || "") === "1") {
     console.log("  模式：       云端部署（不开隧道、端口由平台注入）。监听 0.0.0.0:" + PORT + "。");

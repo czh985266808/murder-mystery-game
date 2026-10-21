@@ -1,12 +1,11 @@
 {
   "name": "murder-mystery-game",
   "version": "1.0.0",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.mjs"
   },
   "dependencies": {
     "ws": "^8.18.0"
   }
 }
-
