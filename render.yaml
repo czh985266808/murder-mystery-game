@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: murder-mystery-game
+    runtime: node
+    plan: free
+    branch: main
+    buildCommand: npm install
+    startCommand: node server.mjs
+    healthCheckPath: /healthz
+    healthCheckTimeoutSeconds: 60
+    autoDeploy: true
+    envVars:
+      - key: NO_TUNNEL
+        value: "1"
+      - key: NO_IMG
+        value: "1"
+      - key: NO_OPEN
+        value: "1"

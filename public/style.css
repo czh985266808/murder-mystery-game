@@ -1,0 +1,847 @@
+/* ============================================================
+   《雾港山庄 · 不眠之夜》  样式
+   ============================================================ */
+:root{
+  --bg:#0a0c11; --bg2:#0f1219; --card:#151a24; --card2:#1b2130;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --tx:#e7eaf1; --tx2:#a9b1c4; --tx3:#6f7891;
+  --gold:#d8a94d; --gold2:#f0c877;
+  --red:#e05a4f; --green:#4fbf8b; --blue:#5b8dff; --purple:#a675ff;
+  --r:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%}
+body{
+  background:
+    radial-gradient(1200px 700px at 12% -10%, #1a2233 0%, transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, #2a1d1a 0%, transparent 55%),
+    var(--bg);
+  color:var(--tx);
+  font:15px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  overflow-x:hidden;
+}
+h1,h2,h3,.serif{font-family:Georgia,"Songti SC","STSong","SimSun",serif;font-weight:700;letter-spacing:.02em}
+button{font-family:inherit;font-size:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea{font-family:inherit;font-size:inherit}
+.boot{display:grid;place-items:center;height:100vh;color:var(--tx3);letter-spacing:.3em}
+a{color:var(--gold)}
+
+/* ---------- 通用 ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px}
+.card+.card{margin-top:14px}
+.card h3{margin:0 0 10px;font-size:17px;color:var(--gold2)}
+.muted{color:var(--tx2)}
+.dim{color:var(--tx3);font-size:13px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:10px 18px;border-radius:10px;border:1px solid var(--line2);
+  background:var(--card2);color:var(--tx);font-weight:600;transition:.15s;
+  white-space:nowrap;
+}
+.btn:hover{border-color:var(--gold);color:var(--gold2)}
+.btn:disabled{opacity:.38;cursor:not-allowed}
+.btn:disabled:hover{border-color:var(--line2);color:var(--tx)}
+.btn.pri{background:linear-gradient(135deg,#d8a94d,#b8862e);color:#1a1206;border-color:transparent}
+.btn.pri:hover{color:#1a1206;filter:brightness(1.1)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 12px;font-size:13px;border-radius:8px}
+.btn.wide{width:100%}
+.tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;border:1px solid var(--line2);color:var(--tx2)}
+.tag.gold{color:var(--gold2);border-color:rgba(216,169,77,.45);background:rgba(216,169,77,.09)}
+.tag.red{color:#ff8b80;border-color:rgba(224,90,79,.45);background:rgba(224,90,79,.1)}
+.tag.green{color:#71d6a9;border-color:rgba(79,191,139,.45);background:rgba(79,191,139,.1)}
+.tag.blue{color:#8bb0ff;border-color:rgba(91,141,255,.45);background:rgba(91,141,255,.1)}
+.tag.purple{color:#c2a0ff;border-color:rgba(166,117,255,.45);background:rgba(166,117,255,.1)}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.note{background:rgba(216,169,77,.07);border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 8px 8px 0;color:var(--tx2);font-size:14px}
+.note.bad{background:rgba(224,90,79,.08);border-color:var(--red)}
+.note.good{background:rgba(79,191,139,.08);border-color:var(--green)}
+
+/* ---------- 顶栏 ---------- */
+header{
+  position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);
+  background:rgba(10,12,17,.86);border-bottom:1px solid var(--line);
+}
+.hd{display:flex;align-items:center;gap:14px;padding:11px 0}
+.brand{font-family:Georgia,"Songti SC",serif;font-size:17px;font-weight:700;letter-spacing:.06em;
+  background:linear-gradient(100deg,#f0c877,#d8a94d 40%,#9a7433);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:16px;letter-spacing:.22em;color:var(--gold2);font-weight:700}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dot.on{background:var(--green);box-shadow:0 0 8px var(--green)}
+.dot.off{background:var(--red)}
+
+/* ---------- 阶段条 ---------- */
+.steps{display:flex;gap:4px;overflow-x:auto;padding:0 0 9px;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.step{flex:0 0 auto;padding:4px 11px;border-radius:20px;font-size:12.5px;color:var(--tx3);
+  border:1px solid transparent;white-space:nowrap}
+.step.done{color:var(--tx2);border-color:var(--line)}
+.step.now{color:#1a1206;background:linear-gradient(135deg,#f0c877,#d8a94d);font-weight:700}
+
+/* ---------- 布局 ---------- */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start;padding:18px 0 90px}
+.side{position:sticky;top:112px;display:flex;flex-direction:column;gap:12px;max-height:calc(100vh - 130px)}
+.scroll{overflow-y:auto;overscroll-behavior:contain}
+.scroll::-webkit-scrollbar{width:8px}
+.scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:8px}
+
+/* ---------- 屏 ---------- */
+.screen{padding:26px 0 90px;max-width:760px;margin:0 auto}
+.hero{text-align:center;padding:40px 0 8px}
+.hero h1{font-size:34px;margin:0 0 6px;
+  background:linear-gradient(100deg,#f5e2b4,#d8a94d 45%,#8f6b2c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{color:var(--tx2);letter-spacing:.24em;font-size:13px}
+.hero .meta{color:var(--tx3);font-size:13px;margin-top:10px}
+.intro-text{color:var(--tx2);line-height:2.1;white-space:pre-wrap;font-size:14.5px}
+
+/* ---------- 输入 ---------- */
+.input{width:100%;padding:11px 14px;border-radius:10px;background:#0c0f16;
+  border:1px solid var(--line2);color:var(--tx);outline:none;transition:.15s}
+.input:focus{border-color:var(--gold)}
+.input.code-in{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.3em;text-transform:uppercase;text-align:center;font-size:19px}
+textarea.input{resize:vertical;min-height:80px;line-height:1.7}
+
+/* ---------- 角色卡 ---------- */
+.chars{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:11px}
+.char{position:relative;border-radius:13px;padding:15px 13px;border:1px solid var(--line);
+  background:var(--card);text-align:center;transition:.16s;cursor:pointer;overflow:hidden}
+.char:hover{border-color:var(--line2);transform:translateY(-2px)}
+.char.sel{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 8px 26px -12px var(--gold)}
+.char.taken{opacity:.34;cursor:not-allowed}
+.char.taken:hover{transform:none;border-color:var(--line)}
+.av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin:0 auto 9px;
+  font-family:Georgia,serif;font-size:23px;font-weight:700;color:#0b0d12}
+.char .nm{font-weight:700;font-size:15.5px}
+.char .rl{font-size:12.5px;color:var(--tx2);margin-top:2px}
+.char .bio{margin-top:9px;line-height:1.5;color:var(--tx2);font-size:12.5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;white-space:normal;min-height:56px;text-align:left}
+.char .mk{position:absolute;top:8px;right:9px;font-size:11px}
+
+/* ---------- 玩家列表 ---------- */
+.plist{display:flex;flex-direction:column;gap:8px}
+.prow{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:11px;
+  background:var(--card2);border:1px solid var(--line)}
+.prow.me{border-color:rgba(216,169,77,.4)}
+.pav{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#0b0d12;flex:0 0 auto;font-family:Georgia,serif}
+.pnm{font-weight:600}
+.pmeta{font-size:12.5px;color:var(--tx3)}
+
+/* ---------- 地点 ---------- */
+.locs{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.loc{border:1px solid var(--line);border-radius:13px;padding:14px;background:var(--card);transition:.16s}
+.loc:hover{border-color:var(--line2)}
+.loc.dead{opacity:.5}
+.loc .lt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px}
+.loc .lc{font-size:12.5px;color:var(--tx3);margin-top:4px;white-space:pre-wrap;line-height:1.6}
+.bar{height:5px;border-radius:5px;background:rgba(255,255,255,.09);overflow:hidden;margin:11px 0 7px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,#d8a94d,#f0c877);border-radius:5px;transition:.3s}
+
+/* ---------- 线索 ---------- */
+.clue{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 11px 11px 0;
+  padding:12px 15px;background:var(--card2);margin-bottom:10px}
+.clue.priv{border-left-color:var(--purple)}
+.clue.fake{border-left-color:var(--red)}
+.clue .ct{font-weight:700;color:var(--gold2);margin-bottom:5px;font-size:14.5px}
+.clue.priv .ct{color:#c2a0ff}
+.clue .cx{color:var(--tx2);font-size:14px;line-height:1.85;white-space:pre-wrap}
+.clue .cf{font-size:12px;color:var(--tx3);margin-top:8px}
+.clue b{color:#ffd98a;font-weight:700}
+
+/* ---------- 侧栏 tabs ---------- */
+.tabs{display:flex;gap:3px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:3px}
+.tab{flex:1;padding:7px 4px;border-radius:8px;font-size:13px;color:var(--tx2);text-align:center;font-weight:600;position:relative}
+.tab.on{background:var(--card2);color:var(--gold2);box-shadow:0 1px 0 rgba(255,255,255,.05) inset}
+.tab .bdg{display:inline-block;min-width:17px;padding:0 4px;border-radius:9px;background:var(--gold);color:#1a1206;font-size:11px;margin-left:4px;font-weight:700}
+
+/* ---------- 聊天 ---------- */
+.chat{display:flex;flex-direction:column;gap:9px;padding:4px 2px}
+.msg{display:flex;gap:8px}
+.msg .who{font-weight:700;font-size:13px;flex:0 0 auto}
+.msg .tx{font-size:14px;color:var(--tx);word-break:break-word}
+.chatbar{display:flex;gap:8px;margin-top:11px}
+.chatbar .input{flex:1;padding:9px 12px}
+
+/* ---------- 阶段大屏 ---------- */
+.phasehead{text-align:center;padding:8px 0 22px}
+.phasehead h2{font-size:27px;margin:0 0 8px;color:var(--gold2)}
+.phasehead p{color:var(--tx2);margin:0;font-size:14.5px}
+
+/* ---------- 剧本 ---------- */
+.scripttabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.stab{padding:6px 14px;border-radius:9px;font-size:13.5px;border:1px solid var(--line);color:var(--tx2)}
+.stab.on{background:var(--card2);border-color:var(--gold);color:var(--gold2);font-weight:700}
+.scriptbody{white-space:pre-wrap;line-height:2.05;font-size:14.5px;color:var(--tx)}
+.scriptbody b{color:#ffd98a}
+.scriptbody .ts{color:var(--gold2);font-weight:700;font-variant-numeric:tabular-nums;margin-right:4px}
+.scriptbody{scrollbar-width:thin}
+.abil{border:1px solid rgba(216,169,77,.35);background:rgba(216,169,77,.06);border-radius:12px;padding:14px 16px}
+.abil .an{font-weight:700;color:var(--gold2);font-size:16px;font-family:Georgia,serif}
+
+/* ---------- 问答 ---------- */
+.q{border:1px solid var(--line);border-radius:13px;padding:16px;background:var(--card);margin-bottom:12px}
+.q .qt{font-weight:700;margin-bottom:12px;font-size:15.5px}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:10px 13px;border-radius:10px;border:1px solid var(--line);
+  margin-bottom:7px;cursor:pointer;transition:.14s;background:var(--card2)}
+.opt:hover{border-color:var(--line2)}
+.opt.sel{border-color:var(--gold);background:rgba(216,169,77,.1)}
+.opt.right{border-color:var(--green);background:rgba(79,191,139,.11)}
+.opt.wrong{border-color:var(--red);background:rgba(224,90,79,.1)}
+.opt .k{font-weight:700;color:var(--gold2);flex:0 0 20px;font-family:Georgia,serif}
+.opt .v{flex:1;font-size:14.5px}
+.opt .mk{font-size:12px}
+
+/* ---------- 投票 ---------- */
+.vgroup{margin-bottom:18px}
+.vgroup .vt{font-weight:700;color:var(--gold2);margin-bottom:9px;font-family:Georgia,serif}
+.vopts{display:grid;gap:8px}
+.vopt{padding:12px 15px;border-radius:11px;border:1px solid var(--line);background:var(--card2);
+  text-align:left;transition:.14s;font-size:14.5px}
+.vopt:hover{border-color:var(--line2)}
+.vopt.sel{border-color:var(--gold);background:rgba(216,169,77,.12);font-weight:600}
+
+/* ---------- 揭晓 ---------- */
+.reveal-h{text-align:center;padding:20px 0}
+.reveal-h .k1{font-size:13px;letter-spacing:.4em;color:var(--tx3)}
+.reveal-h .k2{font-size:36px;font-family:Georgia,"Songti SC",serif;font-weight:700;margin:10px 0;
+  background:linear-gradient(100deg,#ff9d8f,#e05a4f 60%,#8f2d24);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tl{position:relative;padding-left:22px}
+.tl:before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:var(--line2)}
+.tli{position:relative;margin-bottom:13px}
+.tli:before{content:"";position:absolute;left:-20px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.tli.hot:before{background:var(--red);box-shadow:0 0 9px var(--red)}
+.tli .tt{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--gold2);font-size:13px;font-weight:700}
+.tli .tw{font-size:12.5px;color:var(--purple);margin-left:8px}
+.tli .td{color:var(--tx2);font-size:14px;line-height:1.75}
+.rank{display:flex;flex-direction:column;gap:9px}
+.rk{display:flex;align-items:center;gap:13px;padding:13px 16px;border-radius:12px;background:var(--card2);border:1px solid var(--line)}
+.rk.win{border-color:var(--gold);background:linear-gradient(100deg,rgba(216,169,77,.15),transparent)}
+.rk .no{font-family:Georgia,serif;font-size:22px;font-weight:700;color:var(--tx3);width:30px}
+.rk.win .no{color:var(--gold2)}
+.rk .sc{font-family:Georgia,serif;font-size:23px;font-weight:700;color:var(--gold2)}
+.rk .dt{font-size:12.5px;color:var(--tx3);margin-top:5px;line-height:1.8}
+
+/* ---------- 提示条 ---------- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:200;
+  background:#1f2635;border:1px solid var(--line2);color:var(--tx);padding:11px 20px;border-radius:11px;
+  box-shadow:0 14px 40px -12px #000;font-size:14px;max-width:88vw;text-align:center;
+  animation:tin .22s ease}
+.toast.bad{border-color:var(--red);color:#ffb0a8}
+.toast.good{border-color:var(--green);color:#9be8c4}
+@keyframes tin{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* ---------- 弹层 ---------- */
+.modal{position:fixed;inset:0;z-index:150;background:rgba(5,7,11,.82);backdrop-filter:blur(5px);
+  display:flex;align-items:center;justify-content:center;padding:20px}
+.modal .box{background:var(--card);border:1px solid var(--line2);border-radius:16px;padding:22px;
+  max-width:560px;width:100%;max-height:84vh;overflow-y:auto}
+
+/* ---------- 移动端 ---------- */
+.mobonly{display:none}
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr;gap:0;padding-bottom:120px}
+  .side{position:fixed;left:0;right:0;bottom:0;top:auto;max-height:74vh;z-index:60;
+    background:var(--bg2);border-top:1px solid var(--line2);border-radius:16px 16px 0 0;
+    padding:10px 14px 16px;box-shadow:0 -14px 40px -14px #000;display:none}
+  .side.open{display:flex}
+  .mobonly{display:inline-flex}
+  .brand{font-size:15px}
+  .hero h1{font-size:26px}
+  .chars{grid-template-columns:repeat(auto-fill,minmax(138px,1fr))}
+  .locs{grid-template-columns:1fr 1fr}
+  .reveal-h .k2{font-size:27px}
+}
+@media (max-width:420px){.locs{grid-template-columns:1fr}}
+
+/* ============================================================
+   v2：AI 实景图 / 头像 / 我的剧本弹层
+   ============================================================ */
+.shot{position:relative;overflow:hidden;border-radius:11px;margin:0 0 11px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover}
+.lochd{height:104px}
+.cluehd{height:118px}
+.avimg{padding:0;overflow:hidden}
+.avimg img,.pavimg img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
+.pav.big{width:52px;height:52px;font-size:22px}
+.loc.own{border-style:dashed;opacity:.42;filter:grayscale(.8);cursor:not-allowed}
+.loc.own:hover{border-color:var(--line)}
+.loc.own .btn[disabled]{cursor:not-allowed}
+.ownhint{margin-top:8px;font-size:12.5px;color:var(--red);opacity:.9;line-height:1.55}
+/* 需求 3：整页底图（AI 生成一次，一直用缓存）——只压暗局部边缘，中间让图透出来 */
+body.hasbg{
+  background-image:
+    radial-gradient(1100px 640px at 12% -10%, rgba(12,16,24,.72) 0%, rgba(10,12,17,0) 52%),
+    radial-gradient(900px 600px at 100% 0%, rgba(28,20,18,.60) 0%, rgba(10,12,17,0) 52%),
+    linear-gradient(rgba(8,10,15,.48), rgba(8,10,15,.48)),
+    var(--bgimg, none);
+  background-size:auto,auto,auto,cover;
+  background-position:center,center,center,center;
+  background-attachment:fixed,fixed,fixed,fixed;
+  background-repeat:no-repeat,no-repeat,no-repeat,no-repeat;
+  background-color:var(--bg);
+}
+/* 需求 5：每个角色准备情况一览 */
+.rbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.pchip{padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--tx3);font-size:12px;background:rgba(255,255,255,.02);white-space:nowrap}
+.pchip.ok{border-color:rgba(79,191,139,.5);color:var(--green);background:rgba(79,191,139,.10)}
+.pchip.off{opacity:.45;text-decoration:line-through}
+.pchip.npc{border-style:dashed}
+.lk{padding:5px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.lk:last-child{border-bottom:0}
+.scriptmodal{max-width:640px;width:100%}
+.modal .box .scriptbody{margin-top:12px}
+/* 搜索框：线索 / 我的剧本 */
+.searchbar{width:100%;margin:0 0 10px}
+.searchhits{display:flex;flex-direction:column;gap:8px;margin:10px 0 12px}
+.shit{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--card2);color:var(--tx);cursor:pointer;font:inherit}
+.shit:hover{border-color:var(--gold);background:#1f2636}
+.shit .st{flex:0 0 auto;color:var(--gold2);font-size:12px;border:1px solid rgba(216,169,77,.42);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.shit .sx{flex:1;min-width:0;font-size:13.5px;line-height:1.7;color:var(--tx)}
+.searchnote{margin:2px 0 8px;color:var(--tx3);font-size:12.5px}
+.scriptbody mark,.cluebody mark,.clue mark,.shit mark{background:rgba(216,169,77,.38);color:#fff3cf;border-radius:3px;padding:0 1px}
+.char .mk{max-width:118px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ============================================================
+   v3：剧本库（落地页选本）/ 线索按地点分栏折叠
+   ============================================================ */
+.casecard{
+  display:block;border:1px solid var(--line);border-radius:var(--r);background:var(--card2);
+  padding:12px 13px;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;
+}
+.casecard+.casecard{margin-top:11px}
+.casecard:hover{border-color:var(--line2);background:#1f2636}
+.casecard.sel{border-color:var(--gold);box-shadow:0 0 0 1px rgba(216,169,77,.28) inset,0 6px 20px rgba(0,0,0,.28)}
+.casecard .casecov{height:118px;margin:0 0 10px}
+.casecard .cbin{min-width:0}
+.casecard .ct{font-size:16.5px;font-weight:700;color:var(--gold2);display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.casecard .cs{font-size:12.5px;color:var(--tx3);margin-top:3px;letter-spacing:.02em}
+.casecard .dim{font-size:13px;line-height:1.7;color:var(--tx2)}
+
+.cgroup{border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.018);overflow:hidden}
+.cgroup+.cgroup{margin-top:9px}
+.cgroup .ghead{
+  display:flex;align-items:center;gap:9px;width:100%;text-align:left;cursor:pointer;
+  background:transparent;border:0;border-radius:0;padding:9px 11px;color:var(--tx);
+  font:inherit;font-size:13.5px;transition:background .15s;
+}
+.cgroup .ghead:hover{background:rgba(255,255,255,.05)}
+.cgroup .gname{flex:1;min-width:0;font-weight:700;color:var(--gold2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cgroup .ghead .dim{font-size:12px;color:var(--tx3);white-space:nowrap}
+.cgroup .gcaret{width:14px;text-align:right;color:var(--tx3);font-size:12px}
+.cgroup .gbody{padding:2px 10px 10px}
+.cgroup .gbody .clue+.clue{margin-top:9px}
+
+@media (max-width:420px){
+  .casecard .casecov{height:94px}
+  .cgroup .gname{font-size:13px}
+}
+
+
+/* ============================================================
+   需求 2 / 8 / 10 / 13 追加的样式
+   ============================================================ */
+
+/* 需求 13：剧本杀卡片 —— 只摆 人数 / 时长 / 题材 / 类别 */
+.casecard .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px 14px;margin-top:12px}
+.casecard .cf{display:flex;align-items:center;gap:8px;min-width:0}
+.casecard .cf.wide{grid-column:1 / -1}
+.casecard .ck{flex:0 0 auto;font-size:12px;color:var(--tx3);background:rgba(255,255,255,.05);
+  border:1px solid var(--line);border-radius:6px;padding:1px 7px;letter-spacing:.06em}
+.casecard .cv{font-size:14px;color:var(--tx);display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
+
+/* 需求 2：头像 + 角色名（准备一览 / 大厅座位 / 讨论区 / 投票） */
+.pav.mini{width:20px;height:20px;font-size:11px}
+.pav.sm{width:28px;height:28px;font-size:13px}
+.pchip{display:inline-flex;align-items:center;gap:5px}
+.pchip .pcn{font-weight:600}
+.pchip .okmk{color:var(--green);font-weight:700}
+
+/* 需求 8：大厅不摆侧栏，主栏占满整行 */
+.grid.solo{grid-template-columns:minmax(0,1fr)}
+
+/* 讨论区：头像 + 名字 + 内容 */
+.msgrow{display:flex;gap:9px;align-items:flex-start}
+.msgrow+.msgrow{margin-top:11px}
+.msgrow .msg{flex-direction:column;gap:2px;min-width:0}
+.msgrow .msg .who{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+
+/* 需求 10：揭晓页的票型明细 */
+.vrow{display:grid;grid-template-columns:28px minmax(0,1fr);gap:4px 10px;padding:10px 12px;
+  border-radius:11px;border:1px solid var(--line);background:var(--card2)}
+.vrow+.vrow{margin-top:9px}
+.vrow.ok{border-color:rgba(79,191,139,.45);background:rgba(79,191,139,.07)}
+.vrow .pav{grid-row:span 3}
+.vrow .vwho{font-size:14px;min-width:0}
+.vrow .varrow{font-size:13.5px;color:var(--tx2)}
+.vrow .vmeta{font-size:12px;color:var(--tx3);line-height:1.6}
+
+/* 需求 10：我的答题逐题回顾 */
+.qrow{padding:11px 0;border-top:1px dashed var(--line)}
+.qrow:first-child{border-top:0;padding-top:2px}
+.qrow .qq{font-size:14px;font-weight:600;color:var(--tx)}
+.qrow .qa{font-size:13.5px;color:var(--tx2);margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.qrow .qe{font-size:12.5px;line-height:1.7;margin-top:7px}
+
+/* ============================================================
+   本轮需求 2：剧本库卡片照"剧本杀卡片"的样子做
+   封面铺满整张卡 + 底部渐变遮罩；左上角一枚类别章；底部标题 + 四格信息
+   人数 / 时长 / 题材 / 类别，每格一个小图标（仍是约正方形的小卡）
+   ============================================================ */
+.casefilters{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;margin:0 0 12px}
+.casefilters .input{width:auto;min-width:112px;padding:8px 10px;font-size:13px}
+.casefilters .dim{font-size:12px;white-space:nowrap;color:var(--tx2)}
+.cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px}
+.casecard{
+  position:relative;display:block;overflow:hidden;padding:0;
+  aspect-ratio:1 / 1;min-height:164px;
+  border:1px solid var(--line);border-radius:12px;background:#0d1119;
+}
+.casecard+.casecard{margin-top:0}
+.casecard:hover{border-color:var(--line2)}
+.casecard.sel{border-color:var(--gold);box-shadow:0 0 0 1px rgba(216,169,77,.32) inset,0 8px 22px rgba(0,0,0,.34)}
+.casecard .casecov{position:absolute;inset:0;height:auto;margin:0;border-radius:0}
+.casecard .casecov img{display:block;width:100%;height:100%;object-fit:cover}
+.casecard .ccscrim{position:absolute;inset:0;background:linear-gradient(to top,
+  rgba(5,7,12,.96) 0%,rgba(5,7,12,.90) 30%,rgba(5,7,12,.62) 48%,rgba(5,7,12,.22) 68%,rgba(5,7,12,.34) 100%)}
+.casecard .cchip{
+  position:absolute;top:8px;left:8px;display:inline-flex;align-items:center;gap:4px;
+  padding:2px 8px;border-radius:999px;border:1px solid rgba(216,169,77,.55);
+  background:rgba(8,10,16,.58);color:var(--gold2);font-size:11px;letter-spacing:.04em;
+}
+.casecard .cchip svg{width:11px;height:11px}
+.casecard .cbin{
+  position:absolute;left:0;right:0;bottom:0;padding:9px 10px 10px;
+  display:flex;flex-direction:column;gap:6px;min-width:0;
+}
+.casecard .ct{
+  font-size:14px;font-weight:700;line-height:1.3;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8);
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+}
+.casecard .ct .tag{font-size:10.5px;padding:1px 6px}
+.casecard .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px 8px;margin-top:0}
+.casecard .cf{display:flex;align-items:center;gap:4px;min-width:0;font-size:11.5px;
+  line-height:1.35;color:rgba(233,238,247,.9)}
+.casecard .cf.wide{grid-column:1 / -1}
+.casecard .cf svg{flex:0 0 auto;width:12px;height:12px;color:var(--gold2);opacity:.92}
+.casecard .cv{min-width:0;display:flex;flex-wrap:wrap;gap:0 4px;align-items:center}
+@media (max-width:420px){
+  .cases{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px}
+  .casecard{min-height:140px}
+  .casecard .cf{font-size:11px}
+  .casecard .ct{font-size:13px}
+}
+
+/* ============================================================
+   本轮改版（用户需求 1／2／3／4／5）
+   · 剧本卡：更大一号的方块卡，只摆 标题 + 人数/时长/题材/类别；去掉了"封闭本"角章
+   · 删除按钮与删除密码行
+   · 文字地图线索（<pre class="map">）
+   ============================================================ */
+.cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.casecard{
+  position:relative;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;
+  padding:0;border:1px solid var(--line);border-radius:15px;background:#1a2130;
+  aspect-ratio:1 / 1;min-height:300px;transition:border-color .15s,box-shadow .15s,transform .15s;
+}
+.casecard+.casecard{margin-top:0}
+.casecard:hover{border-color:var(--line2);transform:translateY(-2px)}
+.casecard.sel{border-color:var(--gold);box-shadow:0 0 0 1px rgba(216,169,77,.34) inset,0 10px 26px rgba(0,0,0,.36)}
+.casecard .casecov{position:absolute;inset:0;height:auto;margin:0;border-radius:0}
+.casecard .casecov img{display:block;width:100%;height:100%;object-fit:cover}
+.casecard .ccscrim{position:absolute;inset:0;background:linear-gradient(to top,
+  rgba(9,13,20,.97) 0%,rgba(9,13,20,.86) 30%,rgba(9,13,20,.34) 62%,rgba(9,13,20,.22) 100%)}
+.casecard .cbin{position:absolute;left:0;right:0;bottom:0;padding:17px 17px 15px}
+.casecard .ct{font-size:21px;font-weight:700;color:#fff;line-height:1.3;display:flex;align-items:center;flex-wrap:wrap;gap:6px;
+  text-shadow:0 1px 10px rgba(0,0,0,.75)}
+.casecard .ct .tag{font-size:10.5px;padding:1px 6px}
+.casecard .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px 12px;margin-top:14px}
+.casecard .cf{display:flex;align-items:center;gap:8px;min-width:0}
+.casecard .cf.wide{grid-column:auto}
+.casecard .cf svg{flex:0 0 auto;width:15px;height:15px;color:var(--gold2);opacity:.95}
+.casecard .cv{font-size:13.5px;color:#e9dfca;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.casecard .cdel{
+  position:absolute;top:10px;right:10px;width:30px;height:30px;padding:0;border-radius:50%;cursor:pointer;
+  border:1px solid rgba(255,255,255,.24);background:rgba(10,14,22,.66);color:#f3ded2;font-size:13px;line-height:28px;
+  opacity:0;transition:opacity .15s,border-color .15s,background .15s;
+}
+.casecard:hover .cdel,.casecard.sel .cdel{opacity:1}
+.casecard .cdel:hover{border-color:var(--red);background:rgba(224,90,79,.42);color:#fff}
+.delrow{
+  display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:15px;padding:12px 13px;
+  border:1px dashed rgba(224,90,79,.5);border-radius:11px;background:rgba(224,90,79,.07);
+}
+.btn.danger{border-color:rgba(224,90,79,.6);color:#ffbdb6;background:rgba(224,90,79,.16)}
+.btn.danger:hover{border-color:var(--red);background:rgba(224,90,79,.3);color:#fff}
+/* pre.map 已废弃：地图改成 SVG 简笔画 */
+@media(max-width:560px){
+  .cases{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:11px}
+  .casecard{min-height:190px}
+  .casecard .cdel{opacity:1}
+}
+
+/* ============================================================
+   本轮新增：线索键 / 私聊 / 弹层关闭提示 / 校验台
+   ============================================================ */
+.tabs.sub{margin:-4px 0 10px;gap:6px}
+.tabs.sub .tab{font-size:12.5px;padding:5px 10px}
+.dmname{cursor:pointer;border-bottom:1px dashed rgba(255,255,255,.28)}
+.dmname:hover{color:var(--gold2);border-bottom-color:var(--gold)}
+.msgrow.mine{justify-content:flex-end}
+.msgrow.mine .msg{background:rgba(216,169,77,.10);border-color:rgba(216,169,77,.35)}
+.audit{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.audit .arow{display:flex;align-items:center;gap:9px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.02)}
+.audit .arow.ok{border-color:rgba(79,191,139,.30)}
+.audit .arow.bad{border-color:rgba(224,90,79,.45);background:rgba(224,90,79,.06)}
+.audit .ano{flex:0 0 22px;font-size:12px;color:var(--tx3);text-align:right}
+.audit .anm{flex:1;min-width:0;font-size:13.5px;color:var(--tx2)}
+.audit .adet{margin:-2px 0 4px 41px;font-size:12px;color:#ffbdb6;word-break:break-all}
+
+/* ============================================================
+   本轮需求 2：游戏与剧本杀大厅界面精致化
+   只做加法（覆盖/追加），不破坏既有布局
+   ============================================================ */
+/* 全局电影颗粒质感（叠加层，不挡点击） */
+body::after{
+  content:"";position:fixed;inset:0;z-index:999;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.028) 1px, transparent 1px);
+  background-size:3px 3px;opacity:.55;mix-blend-mode:overlay;
+}
+/* 卡片统一悬浮微光 */
+.card{transition:border-color .18s,box-shadow .18s,transform .18s}
+.card:hover{border-color:rgba(216,169,77,.22);box-shadow:0 12px 32px -20px rgba(0,0,0,.65)}
+/* 按钮按压微动 */
+.btn:active{transform:scale(.96)}
+/* 落地页标题下加一条金色细线 */
+.hero h1{position:relative;padding-bottom:6px}
+.hero h1:after{
+  content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:120px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold2),transparent);
+}
+/* 落地页卡片入场动画 */
+.cases{animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.casecard:hover{transform:translateY(-4px);box-shadow:0 18px 44px -22px rgba(216,169,77,.4)}
+/* 大厅角色卡：悬浮 + 选中发光 */
+.char{transition:border-color .16s,transform .16s,box-shadow .16s}
+.char:hover{transform:translateY(-3px);border-color:rgba(216,169,77,.4)}
+.char.sel{box-shadow:0 0 0 1px var(--gold),0 12px 32px -14px rgba(216,169,77,.6)}
+.char .av{box-shadow:0 5px 16px -7px rgba(0,0,0,.65)}
+/* 阶段条：当前阶段发光 */
+.step.now{box-shadow:0 0 14px rgba(216,169,77,.42)}
+/* 侧栏 tab 选中更精致 */
+.tab.on{box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 0 14px -6px rgba(216,169,77,.55)}
+/* 线索卡 hover 微移 */
+.clue{transition:border-color .15s,transform .15s}
+.clue:hover{border-left-color:var(--gold2);transform:translateX(2px)}
+/* 问答选项 hover 微动 */
+.opt{transition:border-color .14s,transform .14s,background .14s}
+.opt:hover{transform:translateX(2px);border-color:var(--line2)}
+/* 玩家行 hover */
+.prow{transition:border-color .15s,background .15s}
+.prow:hover{border-color:rgba(216,169,77,.28)}
+/* 地点卡 hover */
+.loc{transition:border-color .16s,transform .16s,box-shadow .16s}
+.loc:hover{transform:translateY(-2px);border-color:rgba(216,169,77,.28);box-shadow:0 10px 26px -18px rgba(0,0,0,.6)}
+/* 顶栏品牌字加一点光晕 */
+.brand{filter:drop-shadow(0 0 10px rgba(216,169,77,.25))}
+/* 弹层入场 */
+.modal .box{animation:popIn .18s ease both}
+@keyframes popIn{from{opacity:0;transform:scale(.97) translateY(6px)}to{opacity:1;transform:none}}
+
+/* ============================================================
+   本轮需求 3、4：线索弹层 / 讨论区常驻可拉长 / 弹层不闪
+   ============================================================ */
+.cluemodal{max-width:780px;width:100%;display:flex;flex-direction:column;max-height:min(86vh,760px)}
+.cluemodal .cluebody{flex:1;min-height:260px;max-height:420px;overflow-y:auto;margin-top:14px;padding-right:4px}
+.side .chat{max-height:min(54vh,520px);min-height:260px}
+.side .chathead{display:flex;align-items:center;gap:8px;color:var(--gold2);letter-spacing:.04em}
+.side .bdg{display:inline-block;min-width:19px;padding:0 5px;border-radius:9px;background:var(--gold);color:#1a1206;font-size:11px;font-weight:700;text-align:center}
+/* 常驻弹层不重复播放入场动画，只在第一次打开时出现，避免“我的剧本/线索界面闪烁” */
+.modal .box{animation:popIn .18s ease}
+.modal .box.cluemodal,.modal .box.scriptmodal{animation:none}
+/* 弹层打开期间整页重绘被冻结（app.js 的 modalFrozen/refreshModal），
+   只替换 .box 内部内容，外层元素不重建 —— 从根上不再有白闪。
+   这里再给弹层加一层独立合成层，避免内容替换时连带整页重排。 */
+.modal{will-change:opacity;contain:layout paint}
+.modal .box{will-change:contents;backface-visibility:hidden}
+@media (max-width:900px){
+  .cluemodal{max-height:82vh}
+  .cluemodal .cluebody{min-height:42vh;max-height:52vh}
+  .side .chat{min-height:42vh;max-height:48vh}
+}
+@media (max-width:420px){
+  .cluemodal .cluebody{min-height:46vh}
+  .side .chat{min-height:46vh}
+}
+
+
+/* ============================================================
+   本轮需求 1：剧本卡缩到原来的 60% 左右（封面仍按 1:1 铺满）
+   原来的卡：minmax(320px) / min-height 300px / 标题 21px
+   现在的卡：minmax(192px) / min-height 182px / 标题 13px —— 面积约 0.36 ≈ 60% 边长
+   ============================================================ */
+.cases{grid-template-columns:repeat(auto-fill,minmax(192px,1fr));gap:11px}
+.casecard{aspect-ratio:1 / 1;min-height:182px;border-radius:11px}
+.casecard .casecov img{border-radius:0}
+.casecard .ccscrim{background:linear-gradient(to top,
+  rgba(9,13,20,.96) 0%,rgba(9,13,20,.84) 34%,rgba(9,13,20,.32) 66%,rgba(9,13,20,.20) 100%)}
+.casecard .cbin{padding:10px 10px 9px}
+.casecard .ct{font-size:13px;line-height:1.28;gap:4px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.casecard .ct .tag{font-size:9px;padding:1px 5px}
+.casecard .cgrid{grid-template-columns:1fr 1fr;gap:5px 7px;margin-top:8px}
+.casecard .cf{font-size:10.5px;gap:4px}
+.casecard .cf svg{width:11px;height:11px}
+.casecard .cv{font-size:10.5px;line-height:1.35}
+.casecard .cdel{top:6px;right:6px;width:21px;height:21px;font-size:11px;line-height:19px}
+@media(max-width:560px){
+  .cases{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}
+  .casecard{aspect-ratio:1 / 1;min-height:150px}
+  .casecard .ct{font-size:12px}
+  .casecard .cv,.casecard .cf{font-size:10px}
+}
+
+
+/* ============================================================
+   本轮需求 6：你的剧本要有分段排版
+   fmtScript 现在吐出的是 <p> / <p class="tl">（时间线条目）：
+   · 每个时间点自成一行，时间点金色等宽、正文缩进对齐
+   · 编号任务项各自成段
+   · 普通段落之间留出呼吸间距
+   ============================================================ */
+.scriptbody p{margin:0 0 11px}
+.scriptbody p:last-child{margin-bottom:0}
+.scriptbody p.tl{
+  display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:start;
+  margin:0 0 9px;padding:7px 10px 7px 0;
+  border-left:2px solid rgba(216,169,77,.30);padding-left:11px;
+  background:linear-gradient(to right,rgba(216,169,77,.05),transparent 62%);
+  border-radius:0 8px 8px 0;
+}
+.scriptbody p.tl .ts{
+  font-family:ui-monospace,Consolas,"Courier New",monospace;
+  font-size:12.5px;color:var(--gold2);letter-spacing:.02em;
+  padding-top:1px;font-weight:400;
+}
+.scriptbody p.tl .tx{font-size:14.5px;line-height:1.78;color:var(--tx)}
+.scriptbody{line-height:1.85;font-size:15px}
+.scriptbody.muted{line-height:1.85}
+@media(max-width:560px){
+  .scriptbody p.tl{grid-template-columns:46px 1fr;gap:8px;padding-left:9px}
+  .scriptbody p.tl .ts{font-size:11.5px}
+  .scriptbody p.tl .tx{font-size:14px}
+}
+
+/* 圆桌问题预览：只读，避免误触 */
+.opt.preview, .vopt.preview { pointer-events: none; cursor: default; opacity: .96; }
+
+/* ============================================================
+   本轮需求补丁
+   ① 选角卡简介：外貌性格与「与死者关系」合并成一段，行数放宽
+   ② 玩家名标签 + 点头像看名字
+   ③ 案发时间线字号加大
+   ④ 剧本分栏小标题（你的任务 / 你要隐瞒的 / 你知道的）
+   ⑤ 搜证线索弹卡（搜到线索当场显示内容）
+   ⑥ 地图：AI 出图 + 点开看大图
+   ============================================================ */
+
+/* ① 选角卡简介 */
+.char .bio{
+  -webkit-line-clamp:4;min-height:70px;font-size:13px;line-height:1.62;
+}
+
+/* ② 玩家名 */
+.nametag{
+  display:inline-block;font-size:11.5px;line-height:1.5;color:var(--gold2);
+  border:1px solid rgba(216,169,77,.42);background:rgba(216,169,77,.10);
+  border-radius:6px;padding:0 6px;margin-left:5px;white-space:nowrap;vertical-align:middle;
+}
+.pav[data-act="who"]{cursor:pointer}
+.pav[data-act="who"]:hover{box-shadow:0 0 0 2px rgba(216,169,77,.55)}
+
+/* ③ 时间线字号（读剧本时时间线是重点，放大一点） */
+.scriptbody p.tl .tx{font-size:15.5px;line-height:1.85}
+.scriptbody p.tl .ts{font-size:13.5px}
+.tli .td{font-size:15px;line-height:1.85}
+@media(max-width:560px){
+  .scriptbody p.tl .tx{font-size:14.5px}
+  .tli .td{font-size:14.5px}
+}
+
+/* ④ 剧本分栏小标题 */
+.scriptbody p.sec{
+  margin:20px 0 11px;padding:7px 0 7px 11px;
+  border-left:3px solid var(--gold);
+  background:linear-gradient(to right,rgba(216,169,77,.12),transparent 72%);
+  border-radius:0 8px 8px 0;
+  font-weight:700;color:var(--gold2);letter-spacing:.08em;font-size:15.5px;
+}
+.scriptbody p.sec:first-child{margin-top:0}
+
+/* ⑤ 线索弹卡 */
+.toast.cluetoast{
+  text-align:left;max-width:min(560px,90vw);bottom:22px;padding:14px 16px;
+  border-color:rgba(216,169,77,.55);
+}
+.toast.cluetoast .tt{font-weight:700;color:var(--gold2);font-size:14px;margin-bottom:7px}
+.toast.cluetoast .cx{color:var(--tx);font-size:14.5px;line-height:1.75;white-space:pre-wrap}
+.toast.cluetoast .cf{margin-top:9px;color:var(--tx3);font-size:12px}
+.toast.cluetoast.priv{border-color:rgba(166,117,255,.6)}
+.toast.cluetoast.priv .tt{color:#c9a9ff}
+
+/* ⑥ 地图 */
+
+/* ------------------------------------------------------------
+   需求 1：公知平面图改回"简笔画地图"
+   （不是文字地图，也不是 AI 出图——由剧本 layout 直接算方格，前端画 SVG，
+     房间名压在格子里；下面的文字只当图例辅助定位）
+   ------------------------------------------------------------ */
+map {}
+.publicmapwrap{margin-top:16px}
+.publicmapwrap .maptitle{font-weight:700;color:var(--gold2);letter-spacing:.06em;margin-bottom:10px}
+.maphint{margin-top:8px;font-size:12px}
+.mapthumbs{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;
+}
+.mapthumb .maplabel{
+  display:block;padding:8px 10px;text-align:center;color:#241c10;
+  font-size:12px;font-weight:700;letter-spacing:.04em;border-top:1px solid rgba(36,28,16,.14);
+}
+.mapnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.mapnav .mapcount{font-size:13px;color:var(--tx2)}
+.mapthumb{
+  display:block;width:100%;padding:0;border:1px solid var(--line);
+  background:#f6efdd;border-radius:12px;overflow:hidden;cursor:zoom-in;
+  transition:border-color .18s, box-shadow .18s, transform .18s;
+}
+.mapthumb:hover{border-color:rgba(216,169,77,.62);box-shadow:0 8px 26px rgba(0,0,0,.34);transform:translateY(-1px)}
+.mapthumb img,.mapthumb svg{display:block;width:100%;height:auto}
+.mappaper{display:block;width:100%;height:auto;-webkit-user-drag:none;user-select:none}
+.mappaper text{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;pointer-events:none}
+.mappaper .mname{font-weight:600;letter-spacing:.02em}
+.mappaper .mnum{font-weight:700}
+.mappaper .mzonetx{letter-spacing:.14em;font-weight:700}
+.mappaper .mcaption{letter-spacing:.06em}
+
+/* 文字图例：只说明哪个房间在哪一区，位置以图上的方块为准 */
+.maplegend{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.maplegend .mlg{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.maplegend .mlz{
+  font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.08em;
+  border-left:3px solid var(--gold);padding-left:7px;margin-right:2px;
+}
+.maplegend .mlnote{font-size:11.5px;color:var(--tx3);margin-right:2px}
+.maplegend .mln{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:12px;color:var(--tx2);
+  border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:rgba(255,255,255,.03);
+}
+.maplegend .mlnum{
+  display:inline-block;min-width:14px;height:14px;line-height:14px;text-align:center;
+  font-size:10px;font-weight:700;color:#241c10;background:var(--gold2);border-radius:50%;
+}
+.maplegend .mlplan{margin-top:4px;font-size:12px;color:var(--tx3);line-height:1.7}
+
+/* 大图弹层 */
+.modal .box.mapmodal{max-width:min(1080px,96vw)}
+.mapmodal .mapfull{
+  margin-top:12px;max-height:min(70vh,680px);overflow:auto;
+  border:1px solid var(--line);border-radius:12px;background:#f6efdd;padding:8px;
+}
+.mapmodal .mapfull img,.mapmodal .mapfull svg{display:block;width:100%;height:auto}
+
+@media (max-width:560px){
+  .maplegend .mln{font-size:11px;padding:2px 7px}
+  .mapthumb{cursor:zoom-in}
+}
+
+/* ============================================================
+   实景图准备进度（本轮需求）：头像 / 搜证场景 / 背景图要提前缓存好
+   ============================================================ */
+.imgbar{
+  margin:0 0 16px;padding:13px 15px;border:1px solid rgba(216,169,77,.45);border-radius:14px;
+  background:linear-gradient(135deg,rgba(216,169,77,.14),rgba(216,169,77,.04));
+}
+.imgbar.ok{border-color:rgba(110,190,130,.42);background:linear-gradient(135deg,rgba(110,190,130,.13),rgba(110,190,130,.03))}
+.imgbar .imglab{font-size:13.5px;line-height:1.7;color:var(--tx2)}
+.imgbar .imgtrack{
+  margin-top:10px;height:7px;border-radius:99px;overflow:hidden;
+  background:rgba(0,0,0,.28);border:1px solid var(--line);
+}
+.imgbar .imgtrack i{
+  display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));
+  transition:width .5s ease;
+}
+.btn[disabled]{opacity:.5;cursor:not-allowed;filter:grayscale(.35)}
+.mapfloor + .mapfloor{margin-top:22px}
+.mapfloorhead{margin:0 0 10px;font-size:15px;font-weight:700;color:var(--gold2);letter-spacing:.06em}
+.mapfloor .mstairs text{font-size:1.05em;font-weight:700}
+.mapfloor .mwindow{shape-rendering:crispEdges}
+.mapfloor .mstairs{shape-rendering:crispEdges}
+@media (max-width:560px){.mapfloorhead{font-size:14px}.mapfloor + .mapfloor{margin-top:18px}}
+
+/* ============================================================
+   本轮修复 1：移动端搜证界面太占地方
+   原来每张地点卡是 lochd 104px + padding 14px + 多行说明，
+   手机上 4 个地点要滑两三屏，"搜查"按钮还不在拇指够得到的位置。
+   现在：≤900px 就两列、缩图缩边距；≤420px 仍是两列（更小），
+   说明文字两行截断 —— 目标是 4 个地点一屏看完。
+   ============================================================ */
+@media (max-width:900px){
+  .locs{grid-template-columns:1fr 1fr;gap:9px}
+  .loc{padding:10px}
+  .lochd{height:72px}
+  .loc .lt{font-size:14.5px;gap:6px}
+  .loc .lc{font-size:12px;line-height:1.5}
+  .loc .btn.sm{padding:7px 10px;font-size:12.5px}
+}
+@media (max-width:420px){
+  .locs{grid-template-columns:1fr 1fr;gap:8px}
+  .loc{padding:9px}
+  .lochd{height:56px}
+  .loc .lt{font-size:14px}
+  .loc .lc{
+    font-size:11.5px;line-height:1.45;white-space:normal;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .loc .btn.sm{width:100%;padding:8px 8px;font-size:12.5px}
+}
+/* 搜索中：按钮压暗但保留占位，既不连点也不让布局跳动 */
+.btn.busy{opacity:.62;pointer-events:none}
+
+/* ============================================================
+   本轮修复 3/4：连接状态条
+   断线时在标题下面直接说明"正在重连第 N 次、座位还在"，
+   比原来右上角一个 6px 的红点清楚得多。
+   ============================================================ */
+.netbar{
+  margin:10px auto 0;max-width:760px;padding:9px 14px;border-radius:10px;
+  font-size:13.5px;line-height:1.65;text-align:left;
+}
+.netbar b{color:var(--gold2)}
+.netbar.bad{background:rgba(224,90,79,.12);border:1px solid rgba(224,90,79,.45);color:#ffc9c3}
+.netbar.slow{background:rgba(216,169,77,.10);border:1px solid rgba(216,169,77,.38);color:var(--gold2)}
+
+/* ============================================================
+   本轮需求 3：大厅首页的「剧本库入口」+ 点开一本时的确认弹层
+   首页只留两块：进剧本库、拿房号进房；挑本/筛选/删除都搬到剧本库页。
+   ============================================================ */
+.libentry{display:flex;align-items:stretch;overflow:hidden;padding:0;cursor:pointer;transition:border-color .18s,box-shadow .18s}
+.libentry:hover{border-color:rgba(216,169,77,.32);box-shadow:0 14px 34px -22px rgba(0,0,0,.7)}
+.libentry .lecov{flex:0 0 170px;background:#0a0d13;overflow:hidden}
+.libentry .lecov img{width:100%;height:100%;object-fit:cover;display:block}
+.libentry .lebin{flex:1 1 auto;min-width:0;padding:18px 20px}
+.libentry .lebin h3{margin:0 0 8px}
+@media (max-width:560px){
+  .libentry{flex-direction:column}
+  .libentry .lecov{flex:0 0 auto;width:100%;height:130px}
+  .libentry .lebin{padding:14px 16px 16px}
+}
+.modal .box.askbox{max-width:440px}
+.askbox .askcov{height:148px;margin:-22px -22px 14px;overflow:hidden;border-radius:15px 15px 0 0;background:#0a0d13}
+.askbox .askcov img{width:100%;height:100%;object-fit:cover;display:block}
+.askbox h3{margin:0 0 6px;font-size:19px;color:var(--gold2)}
+
+
+
